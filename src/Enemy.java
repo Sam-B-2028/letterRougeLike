@@ -1,8 +1,8 @@
 public class Enemy {
-    int health = 0;
-    int target = 0;
-    int damage = 0;
-    int recovery = 0;
+    private int health = 0;
+    private int target = 0;
+    private int damage = 0;
+    private int recovery = 0;
     boolean alive = true;
     public Enemy(int health, int target, int damage, int recovery){
         this.health = health;
@@ -11,8 +11,20 @@ public class Enemy {
         this.recovery = recovery;
 
     }
-    public int action(){
+    public int getHealth(){
+        return health;
+    }
+    public int getTarget(){
+        return target;
+    }
+    public int getDamage(){
         return damage;
+    }
+    public int getRecovery(){
+        return recovery;
+    }
+    public int action(){
+        return damage * target;
     }
     public void heal(){
         health += recovery;

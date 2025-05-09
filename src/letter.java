@@ -120,10 +120,12 @@ public class letter {
         }
     }private void c(String letter){
         if(letter.equals(letter.toLowerCase())){
-
+            damage +=2;
+            shield += 1;
         }
         else{
-
+            damage += 2;
+            shield += 2;
         }
     }private void d(String letter){
         if(letter.equals(letter.toLowerCase())){
@@ -151,9 +153,12 @@ public class letter {
         }
     }private void g(String letter){
         if(letter.equals(letter.toLowerCase())){
-
+            damage += 4;
+            targets--;
         }
         else{
+            damage += 6;
+            targets--;
 
         }
     }private void h(String letter){
@@ -181,7 +186,7 @@ public class letter {
     }private void k(String letter){
         if(letter.equals(letter.toLowerCase())){
             damage += 6;
-            shield -=4;
+            shield -= 2;
         }
         else{
             damage += 6;
@@ -225,10 +230,13 @@ public class letter {
         }
     }private void p(String letter){
         if(letter.equals(letter.toLowerCase())){
-
+            recovery += 10;
+            shield -= 5;
         }
         else{
-
+            recovery += 10;
+            shield -= 5;
+            damage += 3;
         }
     }private void q(String letter){
         if(letter.equals(letter.toLowerCase())){
@@ -241,10 +249,13 @@ public class letter {
         }
     }private void r(String letter){
         if(letter.equals(letter.toLowerCase())){
-
+            targets = 50;
+            shield -= 10;
         }
         else{
-
+            targets = 90;
+            shield -= 10;
+            damage ++;
         }
     }private void s(String letter){
         if(letter.equals(letter.toLowerCase())){
@@ -265,17 +276,21 @@ public class letter {
         }
     }private void u(String letter){
         if(letter.equals(letter.toLowerCase())){
-
+            damage -= 5;
+            shield += 10;
         }
         else{
-
+            damage--;
+            shield += 10;
         }
     }private void v(String letter){
         if(letter.equals(letter.toLowerCase())){
-
+            shield -= 5;
+            damage += 10;
         }
         else{
-
+            damage += 10;
+            shield--;
         }
     }private void w(String letter){
         if(letter.equals(letter.toLowerCase())){
