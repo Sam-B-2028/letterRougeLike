@@ -60,16 +60,25 @@ public class letter {
                 r(word_split.get(i));
             }if(word_split.get(i).equals("s") || word_split.get(i).equals("S")){
                  s(word_split.get(i));
+                 //if s is followed by h, increase shield and recovery by 1
+                 if(i != word_split.size() - 1 && (word_split.get(i+1).equals("h") || word_split.get((i+1)).equals("H"))){
+                     shield++;
+                     recovery++;
+                 }
             }if(word_split.get(i).equals("t") || word_split.get(i).equals("T")){
-                if (word_split.get(i + 1).equals("h") || word_split.get(i + 1).equals("H")) {
+                //if h follows t, do h twice
+                if (i != word_split.size() - 1&&(word_split.get(i + 1).equals("h") || word_split.get(i + 1).equals("H"))) {
                     h(word_split.get(i + 1));
                 }
                 t(word_split.get(i));
             }if(word_split.get(i).equals("u") || word_split.get(i).equals("U")) {
-                if (word_split.get(i - 1).equals("q") || word_split.get(i - 1).equals("Q")) {
+                //if u follows q, do q twice but not u
+                if (i != 0 &&(word_split.get(i - 1).equals("q") || word_split.get(i - 1).equals("Q"))) {
                     q(word_split.get(i - 1));
                 }
+                else {
                     u(word_split.get(i));
+                }
 
             }
             if(word_split.get(i).equals("v") || word_split.get(i).equals("V")){
@@ -202,7 +211,7 @@ public class letter {
             damage++;
         }
         else{
-            damage+=2;
+            damage+=3;
         }
     }
     private void o(String letter){
@@ -239,10 +248,12 @@ public class letter {
         }
     }private void s(String letter){
         if(letter.equals(letter.toLowerCase())){
-
+            shield++;
+            damage++;
         }
         else{
-
+            shield++;
+            damage+=2;
         }
     }private void t(String letter){
         if(letter.equals(letter.toLowerCase())){

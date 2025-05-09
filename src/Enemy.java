@@ -3,6 +3,7 @@ public class Enemy {
     int target = 0;
     int damage = 0;
     int recovery = 0;
+    boolean alive = true;
     public Enemy(int health, int target, int damage, int recovery){
         this.health = health;
         this.target = target;
@@ -16,5 +17,11 @@ public class Enemy {
     public void heal(){
         health += recovery;
     }
-
+    public void receive_damage(int pain){
+        health -= pain;
+        if (health <= 0) alive = false;
+    }
+    public boolean isAlive(){
+        return alive;
+    }
 }
