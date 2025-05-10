@@ -19,9 +19,11 @@ public class level {
                     else if (index - i > 0) combat_encounter.get(index - 1).receive_damage(damage);
                     //if you can't target anyone stop looking for more people
                 }
+                ArrayList<Enemy> deletion = new ArrayList<>();
                 for(int i = 0; i < combat_encounter.size(); i++){
-                    if(!combat_encounter.get(i).isAlive()) combat_encounter.remove(i);
+                    if(!combat_encounter.get(i).isAlive()) deletion.add(combat_encounter.get(i));
                 }
+                combat_encounter.removeAll(deletion);
             }
         }
 
@@ -38,21 +40,33 @@ public class level {
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < combat_encounter.size(); j++){
                 if(i==0){
-                    System.out.print("health: " + combat_encounter.get(j).getHealth());
+                    System.out.print(" health: " + combat_encounter.get(j).getHealth());
                 }
                 else if(i==1){
-                    System.out.print("damage: " + combat_encounter.get(j).getDamage());
+                    System.out.print(" damage: " + combat_encounter.get(j).getDamage());
                 }
                 else if(i==2){
-                    System.out.print("target: " + combat_encounter.get(j).getTarget());
+                    System.out.print(" target: " + combat_encounter.get(j).getTarget());
                 }
                 else{
-                    System.out.print("recovery: " + combat_encounter.get(j).getRecovery());
+                    System.out.print(" recovery: " + combat_encounter.get(j).getRecovery());
                 }
             }
+            System.out.println();
         }
-        System.out.println();
+
     }
-
-
+    public boolean encounterAlive(){
+        boolean alive = false;
+        for (Enemy enemy : combat_encounter) {
+            if (enemy.isAlive()) {
+                alive = true;
+                break;
+            }
+        }
+        return alive;
+    }
+    public String[] getRewards() {
+        return rewards;
+    }
 }

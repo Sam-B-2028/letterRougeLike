@@ -178,10 +178,13 @@ public class letter {
         }
     }private void j(String letter){
         if(letter.equals(letter.toLowerCase())){
-
+            damage += 6;
+            recovery -= 4;
         }
         else{
-
+            damage += 6;
+            recovery -= 4;
+            shield += 4;
         }
     }private void k(String letter){
         if(letter.equals(letter.toLowerCase())){

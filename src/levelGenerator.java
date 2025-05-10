@@ -6,7 +6,9 @@ public class levelGenerator {
     public void reset(){
         levelsCompleted = 0;
     }
-
+    public int getLevelsCompleted(){
+        return levelsCompleted;
+    }
     public level newLevel(){
         ArrayList<Enemy> e = new ArrayList<>();
         String[] rewards = new String [3];
@@ -18,7 +20,7 @@ public class levelGenerator {
                     (int) (Math.random() * levelsCompleted) + 2,
                             (int) (Math.random() * levelsCompleted)));
             //every 5 levels completed add a more powerful enemy in the array of enemies
-            if(levelsCompleted % 5 == 0)  e.add(new Enemy((int) (Math.random() * levelsCompleted) + 4,
+            if(levelsCompleted % 5 == 4)  e.add(new Enemy((int) (Math.random() * levelsCompleted) + 4,
                     (int) (Math.random() * levelsCompleted) + 1,
                     (int) (Math.random() * levelsCompleted) + 4,
                     (int) (Math.random() * levelsCompleted) + 2));
