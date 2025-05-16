@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class player {
@@ -11,6 +12,29 @@ public class player {
     private boolean alive = true;
     private letter attack = new letter();
 
+    public void help(){
+        System.out.println("What letter (or word) do you want to check the stats of?");
+        Scanner scn = new Scanner(System.in);
+        boolean valid = false;
+        String questionableLetter = "";
+        while(!valid){
+            try{
+                questionableLetter = scn.nextLine();
+                int[] question = attack.action(questionableLetter);
+                System.out.println("This letter/word's attack: " + question[0]);
+                System.out.println("This letter/word's possible targets: " + question[1]);
+                System.out.println("This letter/word's self recovery: " + question[2]);
+                System.out.println("This letter/word's shield: " + question[3]);
+                valid = true;
+            }
+            // todo - fix non-letter input being acceptable
+            catch (Exception e){
+                System.out.println("Bad input, try again");
+            }
+        }
+
+    }
+
     public void printKnownLetters(){
         System.out.println("Known Letters: ");
         for (String s : letters_known) {
@@ -22,26 +46,31 @@ public class player {
         for(int i = 0; i < letters_known.size();i++){
             System.out.print(letters_known.get(i) + " ");
         }
-        System.out.println("What word are you attacking with?");
+        System.out.println("Type the word you are attacking with (or press ? to figure out what a letter does):");
         Scanner scn = new Scanner(System.in);
         boolean valid = false;
         String comfirmedWord = "";
         while(!valid) {
+
             String chosenWord = scn.next();
-            for(int i = 0; i < chosenWord.length();i++){
+            if(chosenWord.equals("?")){
+                help();
+                System.out.println("Type the word you are attacking with (or press ? to figure out what a letter does):");
+            }
+            else{ for(int i = 0; i < chosenWord.length();i++) {
                 char ch = (chosenWord.charAt(i));
-                if(!letters_known.contains(Character.toString(ch))){
+                if (!letters_known.contains(Character.toString(ch))) {
                     System.out.println("Your word contains a letter you don't know, try again");
                     letters_known.addAll(word);
                     word.clear();
                     valid = false;
                     break;
-                }
-                else{
+                } else {
                     word.add(Character.toString(ch));
                     letters_known.remove(Character.toString(ch));
                     valid = true;
                 }
+            }
                 comfirmedWord = chosenWord;
             }
         }
@@ -131,13 +160,45 @@ public class player {
         }
     }
     public void chooseRewards(String [] rewards){
-        System.out.print("Choose what letter to add to your collection: ");
-        for(int i = 0; i < rewards.length; i++){
-            System.out.print(rewards[i] + " ");
-        }
+        boolean finished = false;
+        System.out.print("Press r to choose a reward or any other input to capitalize an already known letter (or press ? to learn what letters and words do): ");
         Scanner scn = new Scanner(System.in);
-        int chosen_letter = scn.nextInt();
-        letters_known.add(rewards[chosen_letter]);
+        while(!finished) {
+            String choice = scn.nextLine();
+            if (choice.equals("r")) {
+                System.out.println("Reward options:");
+                for (int i = 0; i < rewards.length; i++) {
+                    System.out.print(rewards[i] + " ");
+                }
+                System.out.println("Type the index of your chosen reward : ");
+                boolean valid = false;
+                while (!valid) {
+                    try {
+                        int chosen_letter = scn.nextInt();
+                        letters_known.add(rewards[chosen_letter]);
+                        valid = true;
+                    } catch (InputMismatchException e) {
+                        System.out.println("I said to input the INDEX of the letter of what you wanted you dunce, try again");
+                        scn.nextLine();
+                    } catch (IndexOutOfBoundsException e) {
+                        System.out.println("FYI We use 0 based indexing here, so please try again.");
+                    }
+                }
+                finished = true;
+            } else if (choice.equals("?")) {
+                help();
+                System.out.print("Press r to choose a reward or any other input to capitalize an already known letter (or press ? to learn what letters and words do): ");
+            } else {
+                printKnownLetters();
+                System.out.println("What letter would you like to capitalize?");
+                String toCapital = scn.nextLine();
+                for (int i = 0; i < letters_known.size(); i++) {
+                    if (letters_known.get(i).equals(toCapital))
+                        letters_known.set(i, letters_known.get(i).toUpperCase());
+                }
+                finished = true;
+            }
+        }
     }
     public int getHealth(){
         return health;
