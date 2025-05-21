@@ -57,6 +57,7 @@ public class player {
                 help();
                 System.out.println("Type the word you are attacking with (or press ? to figure out what a letter does):");
             }
+            //checks if you use only letters you know
             else{ for(int i = 0; i < chosenWord.length();i++) {
                 char ch = (chosenWord.charAt(i));
                 if (!letters_known.contains(Character.toString(ch))) {
@@ -71,7 +72,15 @@ public class player {
                     valid = true;
                 }
             }
-                comfirmedWord = chosenWord;
+                //checks to see if your word is an actual word
+                WordCheck checker = new WordCheck();
+                if(checker.checkWord(chosenWord)) comfirmedWord = chosenWord;
+                else{
+                    valid = false;
+                    System.out.println("The word you chose is not in the English dictionary, try again");
+                    letters_known.addAll(word);
+                    word.clear();
+                }
             }
         }
         letters_known.addAll(word);
